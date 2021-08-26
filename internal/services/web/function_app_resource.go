@@ -294,6 +294,15 @@ func resourceFunctionAppCreate(d *pluginsdk.ResourceData, meta interface{}) erro
 		}
 	}
 
+	appKindSettings := expandAppServiceAppSettings(d)
+	if val, ok := appKindSettings["APP_KIND"]; ok {
+		workflowApp := "workflowApp"
+		appKind := *val
+		if strings.EqualFold(appKind, workflowApp) {
+			kind = "functionapp,workflowapp"
+		}
+	}
+
 	appServicePlanID := d.Get("app_service_plan_id").(string)
 	enabled := d.Get("enabled").(bool)
 	clientAffinityEnabled := d.Get("client_affinity_enabled").(bool)
@@ -413,6 +422,15 @@ func resourceFunctionAppUpdate(d *pluginsdk.ResourceData, meta interface{}) erro
 			kind = "functionapp,linux"
 		}
 	}
+	appKindSettings := expandAppServiceAppSettings(d)
+	if val, ok := appKindSettings["APP_KIND"]; ok {
+		workflowApp := "workflowApp"
+		appKind := *val
+		if strings.EqualFold(appKind, workflowApp) {
+			kind = "functionapp,workflowapp"
+		}
+	}
+
 	appServicePlanID := d.Get("app_service_plan_id").(string)
 	enabled := d.Get("enabled").(bool)
 	clientAffinityEnabled := d.Get("client_affinity_enabled").(bool)
