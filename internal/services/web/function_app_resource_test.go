@@ -237,7 +237,7 @@ func TestAccFunctionApp_logicAppWorkflows(t *testing.T) {
 			Config: r.logicAppWorkflow(data),
 			Check: acceptance.ComposeTestCheckFunc(
 				check.That(data.ResourceName).ExistsInAzure(r),
-				acceptance.TestCheckResourceAttr(data.ResourceName, "kind", "functionapp,linux,workflowapp"),
+				acceptance.TestCheckResourceAttr(data.ResourceName, "kind", "functionapp,workflowapp"),
 				check.That(data.ResourceName).Key("app_settings.WEBSITE_CONTENTOVERVNET").HasValue("0"),
 				check.That(data.ResourceName).Key("app_settings.WEBSITE_VNET_ROUTE_ALL").HasValue("0"),
 				check.That(data.ResourceName).Key("app_settings.APP_KIND").HasValue("workflowApp"),
